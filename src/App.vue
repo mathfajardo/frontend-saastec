@@ -5,14 +5,17 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import './assets/global.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
+import BarraNavegacao from './components/BarraNavegacao.vue';
+
 </script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="bg-body-secondary min-vh-100">
+    <BarraNavegacao />
+    <main :style="{ marginLeft: sidebarWidth }" class="p-4 container">
+      <RouterView />
+    </main>
+  </div>
 </template>
 
 <style scoped></style>
