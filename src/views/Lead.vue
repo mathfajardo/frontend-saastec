@@ -1,3 +1,6 @@
 <script setup></script>
 
-<template>leads</template>
+<template>
+
+    <h1 class="mb-5"><i class="bi bi-house-door"></i> Leads</h1>
+</template>

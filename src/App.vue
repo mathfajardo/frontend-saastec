@@ -12,7 +12,7 @@ import BarraNavegacao from './components/BarraNavegacao.vue';
 <template>
   <div class="bg-body-secondary min-vh-100">
     <BarraNavegacao />
-    <main :style="{ marginLeft: sidebarWidth }" class="p-4 container">
+    <main style="margin-left: 250px" class="p-4">
       <RouterView />
     </main>
   </div>
