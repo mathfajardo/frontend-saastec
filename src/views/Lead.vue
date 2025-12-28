@@ -266,6 +266,7 @@ const coresStatus = {
                 type="text" 
                 class="form-control" 
                 v-model="leadSelecionado.numero"
+                v-mask="'(##) #####-####'"
               >
             </div>
 
