@@ -1,6 +1,10 @@
 <script setup>
-import {ref, computed} from 'vue';
+import Swal from 'sweetalert2';
+import {ref, computed, defineEmits} from 'vue';
+import { useAuth } from '@/stores/auth';
+import { useRouter } from 'vue-router';
 
+const emit = defineEmits(['toggle-collapsed']);
 
 const collapsed = ref(false);
 
@@ -10,6 +14,27 @@ const sidebarWidth = computed(() => {
 
 const toggleSidebar = () => {
     collapsed.value = !collapsed.value;
+    emit('toggle-collapsed', collapsed.value);
+}
+
+// função de logout
+const auth = useAuth();
+const router = useRouter();
+
+
+async function fazerLogout() {
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Logout realizado',
+    confirmButtonColor: '#000000',
+    showConfirmButton: false,
+    toast: true,
+    timer: 2000,
+    timerProgressBar: true
+  });
+  await auth.logout();
+  router.push('/');
 }
 
 
@@ -27,9 +52,10 @@ const toggleSidebar = () => {
     </h1>
 
     <div class="px-3">
-      <RouterLink to="/" class="nav-link py-2"><i class="bi bi-house-door"></i> <span v-if="!collapsed">Home</span></RouterLink>
+      <RouterLink to="/home" class="nav-link py-2"><i class="bi bi-house-door"></i> <span v-if="!collapsed">Home</span></RouterLink>
       <RouterLink to="/lead" class="nav-link py-2"><i class="bi bi-person-fill-add"></i> <span v-if="!collapsed">Leads</span></RouterLink>
       <RouterLink to="/cliente" class="nav-link py-2"><i class="bi bi-person-heart"></i> <span v-if="!collapsed">Clientes</span></RouterLink>
+      <a class="nav-link py-2 text-danger" @click.prevent="fazerLogout" style="cursor: pointer;"><i class="bi bi-box-arrow-right"></i> <span v-if="!collapsed">Sair</span></a>
     </div>
 
     <span

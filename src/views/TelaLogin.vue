@@ -48,19 +48,21 @@ async function login() {
 
 
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
-    <div class="bg-body border p-3 shadow-sm w-50 rounded">
+    <div class="bg-body border p-3 shadow-sm w-25 p-5 rounded shadow-lg">
+        <p class="text-center h3 fw-bold">CRM</p>
+        <p class="text-center text-muted">Bem-vindo de volta! Faça login para continuar</p>
         <form @submit.prevent="login">
             <div class="mb-3">
                 <label for="nome" class="form-label">Email</label>
-                <input type="email" class="form-control" v-model="user.email">
+                <input type="email" class="form-control" placeholder="Digite seu email..." v-model="user.email">
             </div>
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Senha</label>
-                <input type="number" class="form-control" v-model="user.password">
+                <input type="password" class="form-control" placeholder="Digite sua senha..." v-model="user.password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" class="btn btn-primary"><span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>{{ loading ? 'Entrando...' : 'Entrar' }}</button>
 
         </form>
     </div>

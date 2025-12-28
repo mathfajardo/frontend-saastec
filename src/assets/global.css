@@ -1,3 +1,15 @@
+.form-control {
+    border-radius: 0px;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: none;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
 .azul1 {
     background-color: #101828;
 }

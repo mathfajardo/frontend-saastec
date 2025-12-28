@@ -7,25 +7,30 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import BarraNavegacao from './components/BarraNavegacao.vue';
 import { useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
+import { computed, ref} from 'vue';
 
 const route = useRoute();
+const collapsed = ref(false);
 
-let marginLogin = ref('');
 const esconderNav = computed (() => {
-
-
-  marginLogin.value = esconderNav ? "margin-left: 250" : "margin-left: 0";
   return route.meta.esconderNav || false;
 });
 
+const tirarMargin = computed (() => {
+  if (esconderNav.value) return "";
+  return collapsed.value ? "margin-left: 70px" : "margin-left: 250px";
+});
+
+const atualizarCollapsed = (valor) => {
+  collapsed.value = valor;
+};
 
 </script>
 
 <template>
   <div class="bg-body-secondary min-vh-100">
-    <BarraNavegacao v-if="!esconderNav" />
-    <main :style="marginLogin" class="p-4">
+    <BarraNavegacao v-if="!esconderNav" @toggle-collapsed="atualizarCollapsed" />
+    <main :style="tirarMargin" class="p-4">
       <RouterView />
     </main>
   </div>
