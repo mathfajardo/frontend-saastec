@@ -1,5 +1,6 @@
 <script setup>
 import axiosInstance from '@/services/http';
+import Swal from 'sweetalert2';
 import { ref, onMounted, computed } from 'vue';
 
 
@@ -49,24 +50,67 @@ const fecharModal = () => {
 function salvarLead() {
 
   const index = leads.value.findIndex(l => l.id === leadSelecionado.value.id);
-  if (index !== -1) {
-    leads.value[index] = { ...leadSelecionado.value };
-  }
+
   axiosInstance.put('/leads/' + leadSelecionado.value.id, leadSelecionado.value)
   .then(response => {
     Swal.fire({
-      
-    })
+      position: 'top-end',
+      title: response.data.message,
+      icon: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar:true
+    });
+    if (index !== -1) {
+    leads.value[index] = { ...leadSelecionado.value };
+    }
+    fecharModal();
   })
-  fecharModal();
+  .catch(error => {
+    console.error('Erro: ', error);
+    Swal.fire({
+      title: 'erro ao atualizar',
+      text: 'favor entrar em contato com o admin do sistema',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }) 
+  
 };
 
 // Função para mover lead entre colunas
-const moverLead = (leadId, novoStatus) => {
-  const lead = leads.value.find(l => l.id === leadId);
-  if (lead) {
-    lead.status = novoStatus;
-  }
+function moverLead(leadId, novoStatus) {
+  const index = leads.value.findIndex(l => l.id === leadId);
+  const lead = leads.value[index];
+  
+  lead.status = novoStatus
+
+
+  axiosInstance.put('/leads/' + leadId, lead)
+  .then(response => {
+    Swal.fire({
+      position: 'top-end',
+      title: response.data.message,
+      icon: 'success',
+      toast: true,
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar:true
+    });
+    leads.value[index] = { ...lead };
+    fecharModal();
+  })
+  .catch(error => {
+    console.error('Erro: ', error);
+    Swal.fire({
+      title: 'erro ao atualizar',
+      text: 'favor entrar em contato com o admin do sistema',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    });
+  }) 
+  
 };
 
 // Computed para organizar leads por status

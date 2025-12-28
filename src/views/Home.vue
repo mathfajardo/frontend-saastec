@@ -102,16 +102,6 @@ const createHistogram = () => {
         <h3 class="card-text display-4 fs-1 fw-bold">20</h3>
       </div>
     </div>
-
-    <div class="card border-0 rounded-4" style="width: 20rem;">
-      <div class="card-body p-4 text-center">
-        <div class="d-flex justify-content-center mb-3">
-          <i class="bi bi-box-seam display-4"></i>
-        </div>
-        <h5 class="card-title text-white-75 fw-semibold mb-3">Total de leads hoje</h5>
-        <h3 class="card-text display-4 fs-1 fw-bold">20</h3>
-      </div>
-    </div>
   </div>
 
   <!-- Histograma Chart.js -->
