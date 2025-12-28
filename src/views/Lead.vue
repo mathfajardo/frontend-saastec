@@ -140,7 +140,17 @@ const coresStatus = {
 </script>
 
 <template>
-  <div class="container-fluid">
+  <!-- tela de carregamento -->
+  <div
+      class="d-flex flex-column justify-content-center align-items-center vh-100"
+      v-if="carregamento"
+  >
+      <div class="spinner-border">
+          <span class="visually-hidden">Aguarde...</span>
+      </div>
+  </div>
+
+  <div class="container-fluid" v-if="!carregamento">
     <!-- Cabeçalho -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="mb-0"><i class="bi bi-people"></i> Quadro de Leads</h1>

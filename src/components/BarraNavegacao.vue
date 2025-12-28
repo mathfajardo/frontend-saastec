@@ -45,8 +45,8 @@ async function fazerLogout() {
   <div class="sidebar azul1" :style="{ width: sidebarWidth }">
     <h1 class="text-center py-3 mb-4 border-bottom">
       <span v-if="collapsed" class="d-flex flex-column align-items-center">
-        <div>V</div>
-        <div>S</div>
+        <div>C</div>
+        <div>R</div>
       </span>
       <span v-else class="fs-4">CRM REPSAAS</span>
     </h1>

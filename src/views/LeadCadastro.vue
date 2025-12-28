@@ -64,7 +64,7 @@ function cadastrar_lead() {
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Número</label>
-                <input type="number" class="form-control" v-model="obj.numero">
+                <input type="text" class="form-control" v-model="obj.numero">
             </div>
 
             <div class="mb-3">
