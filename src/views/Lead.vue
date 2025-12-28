@@ -1,17 +1,30 @@
 <script setup>
+import axiosInstance from '@/services/http';
 import { ref, onMounted, computed } from 'vue';
 
-// Dados fictícios para os leads
-const leads = ref([
-  { id: 1, nome: 'João Silva', numero: '(11) 99999-8888', status: 'Novo', observacoes: 'Interessado em financiamento' },
-  { id: 2, nome: 'Maria Santos', numero: '(21) 98888-7777', status: 'Em atendimento', observacoes: 'Agendar reunião para semana que vem' },
-  { id: 3, nome: 'Pedro Oliveira', numero: '(31) 97777-6666', status: 'Convertido', observacoes: 'Cliente fechado dia 15/05' },
-  { id: 4, nome: 'Ana Costa', numero: '(41) 96666-5555', status: 'Novo', observacoes: 'Entrou pelo site' },
-  { id: 5, nome: 'Carlos Rodrigues', numero: '(51) 95555-4444', status: 'Em atendimento', observacoes: 'Aguardando documentação' },
-  { id: 6, nome: 'Fernanda Lima', numero: '(61) 94444-3333', status: 'Perdido', observacoes: 'Não atende mais' },
-  { id: 7, nome: 'Roberto Alves', numero: '(71) 93333-2222', status: 'Novo', observacoes: 'Recomendação do cliente João' },
-  { id: 8, nome: 'Juliana Pereira', numero: '(81) 92222-1111', status: 'Convertido', observacoes: 'Contrato assinado' },
-]);
+
+// carregamento
+let carregamento = ref(true);
+
+// iniciando array dos leads
+let leads = ref([]);
+
+
+// carregando os leads
+onMounted(() => {
+
+  axiosInstance.get('/leads/')
+  .then(response => {
+    leads.value = response.data.data;
+    console.log("leads: ", leads.value[1]);
+    carregamento.value = false;
+  })
+  .catch(error => {
+    console.log('Erro: ', error)
+    carregamento.value = false;
+  })
+})
+
 
 // Lead selecionado para detalhes
 const leadSelecionado = ref(null);
@@ -33,11 +46,18 @@ const fecharModal = () => {
 };
 
 // Função para salvar alterações do lead
-const salvarLead = () => {
+function salvarLead() {
+
   const index = leads.value.findIndex(l => l.id === leadSelecionado.value.id);
   if (index !== -1) {
     leads.value[index] = { ...leadSelecionado.value };
   }
+  axiosInstance.put('/leads/' + leadSelecionado.value.id, leadSelecionado.value)
+  .then(response => {
+    Swal.fire({
+      
+    })
+  })
   fecharModal();
 };
 

@@ -71,10 +71,10 @@ function cadastrar_lead() {
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" id="status" v-model="obj.status">
                     <option selected>Selecione uma opção</option>
-                    <option value="Novos">Novos</option>
+                    <option value="Novo">Novos</option>
                     <option value="Em atendimento">Em atendimento</option>
-                    <option value="Convertidos">Convertidos</option>
-                    <option value="Perdidos">Perdidos</option>
+                    <option value="Convertido">Convertidos</option>
+                    <option value="Perdido">Perdidos</option>
                 </select>
             </div>
 
