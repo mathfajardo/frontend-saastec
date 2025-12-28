@@ -4,15 +4,11 @@ import Lead from '@/views/Lead.vue'
 import LeadCadastro from '@/views/LeadCadastro.vue'
 import TelaLogin from '@/views/TelaLogin.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuth } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/home', 
-      name: 'home',
-      component: Home
-    },
     {
       path: '/', 
       name: 'login',
@@ -22,19 +18,36 @@ const router = createRouter({
       }
     },
     {
+      path: '/home', 
+      name: 'home',
+      component: Home,
+      meta: {
+        auth: true
+      }
+    },
+    {
       path: '/lead', 
       name: 'lead',
-      component: Lead
+      component: Lead,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/leadcadastro', 
       name: 'leadcadastro',
-      component: LeadCadastro
+      component: LeadCadastro,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/cliente', 
       name: 'cliente',
-      component: Cliente
+      component: Cliente,
+      meta: {
+        auth: true
+      }
     }
   ],
 })
