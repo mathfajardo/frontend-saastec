@@ -19,6 +19,7 @@ onMounted(() => {
     leads.value = response.data.data;
     console.log("leads: ", leads.value[1]);
     carregamento.value = false;
+    console.log(leads.value);
   })
   .catch(error => {
     console.log('Erro: ', error)
@@ -195,11 +196,11 @@ const coresStatus = {
                     <div class="d-flex align-items-start">
                       <div class="flex-grow-1">
                         <h6 class="card-title mb-1">{{ lead.nome }}</h6>
-                        <p class="card-text text-muted mb-2">
+                        <p class="text-muted mb-2">
                           <i class="bi bi-telephone me-2"></i>{{ lead.numero }}
                         </p>
                         <small class="text-muted">
-                          <i class="bi bi-clock me-1"></i>Última atualização: há 2 dias
+                          <i class="bi bi-clock me-1"></i>{{ lead.updated_at }}
                         </small>
                       </div>
                       <div class="dropdown">
@@ -298,10 +299,10 @@ const coresStatus = {
                   <h6 class="card-subtitle mb-2 text-muted">Informações Adicionais</h6>
                   <div class="row small">
                     <div class="col-6">
-                      <p class="mb-1"><i class="bi bi-calendar me-1"></i> Criado em: 15/05/2024</p>
+                      <p class="mb-1"><i class="bi bi-calendar me-1"></i>Data de criação: {{ leadSelecionado.created_at }}</p>
                     </div>
                     <div class="col-6">
-                      <p class="mb-1"><i class="bi bi-arrow-clockwise me-1"></i> Última atualização: Hoje</p>
+                      <p class="mb-1"><i class="bi bi-arrow-clockwise me-1"></i> Última atualização: {{ leadSelecionado.updated_at }}</p>
                     </div>
                   </div>
                 </div>
