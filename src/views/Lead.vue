@@ -2,6 +2,7 @@
 import axiosInstance from '@/services/http';
 import Swal from 'sweetalert2';
 import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 
 // carregamento
@@ -9,6 +10,8 @@ let carregamento = ref(true);
 
 // iniciando array dos leads
 let leads = ref([]);
+
+const router = useRouter();
 
 
 // carregando os leads
@@ -33,7 +36,7 @@ const leadSelecionado = ref(null);
 const modalVisivel = ref(false);
 
 // Status disponíveis
-const statusDisponiveis = ['Novo', 'Em atendimento', 'Convertido', 'Perdido'];
+const statusDisponiveis = ['Novo', 'Em atendimento', 'Perdido', 'Convertido'];
 
 // Função para abrir modal com detalhes do lead
 const abrirDetalhesLead = (lead) => {
@@ -82,10 +85,29 @@ function salvarLead() {
 
 // Função para mover lead entre colunas
 function moverLead(leadId, novoStatus) {
+
   const index = leads.value.findIndex(l => l.id === leadId);
   const lead = leads.value[index];
   
   lead.status = novoStatus
+
+  if (novoStatus == 'Convertido') {
+    axiosInstance.put('/leads/' + leadId, lead)
+    .then(response => {
+      leads.value[index] = { ...lead };
+      router.push(`/clientecadastro/${leadId}`);
+    })
+    .catch(error => {
+      console.error('Erro: ', error);
+      Swal.fire({
+        title: 'erro ao atualizar',
+        text: 'favor entrar em contato com o admin do sistema',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
+    })
+    return
+  }
 
 
   axiosInstance.put('/leads/' + leadId, lead)
@@ -127,16 +149,16 @@ const leadsPorStatus = computed(() => {
 const nomesStatus = {
   'Novo': 'Novos',
   'Em atendimento': 'Em Atendimento',
-  'Convertido': 'Convertidos',
-  'Perdido': 'Perdidos'
+  'Perdido': 'Perdidos',
+  'Convertido': 'Convertidos'
 };
 
 // Cores para cada status
 const coresStatus = {
   'Novo': 'bg-primary',
   'Em atendimento': 'bg-warning',
+  'Perdido': 'bg-danger',
   'Convertido': 'bg-success',
-  'Perdido': 'bg-danger'
 };
 </script>
 

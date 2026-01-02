@@ -5,6 +5,7 @@ import LeadCadastro from '@/views/LeadCadastro.vue'
 import TelaLogin from '@/views/TelaLogin.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@/stores/auth'
+import ClienteCadastro from '@/views/ClienteCadastro.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,14 @@ const router = createRouter({
       path: '/cliente', 
       name: 'cliente',
       component: Cliente,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/clientecadastro/:id',
+      name: 'clientecadastro',
+      component: ClienteCadastro,
       meta: {
         auth: true
       }
