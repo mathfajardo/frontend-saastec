@@ -87,7 +87,7 @@ import Swal from 'sweetalert2'
 
 <div class="d-flex aling-items-center" v-if="!carregamento">
 <RouterLink class="text-center btn btn-primary m-2" to="/cadastroprodutos">
-  Cadastrar novo produto
+  Cadastrar novo cliente
 </RouterLink>
 <form class="d-flex m-2" role="search" @submit.prevent="pesquisar">
       <input class="form-control me-2" type="search" placeholder="Pesquisar..." v-model="termoPesquisa">
