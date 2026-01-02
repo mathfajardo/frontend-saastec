@@ -73,22 +73,25 @@ import Swal from 'sweetalert2'
 
 <template>
 
-<div
-    class="d-flex flex-column justify-content-center align-items-center vh-100"
-    v-if="carregamento"
->
-    <div class="spinner-border">
-        <span class="visually-hidden">Aguarde...</span>
-    </div>
-    <p class="mt-2">Carregando...</p>
+<!-- tela de carregamento -->
+  <div
+      class="d-flex flex-column justify-content-center align-items-center vh-100"
+      v-if="carregamento"
+  >
+      <div class="spinner-border">
+          <span class="visually-hidden">Aguarde...</span>
+      </div>
+  </div>
+
+<!-- Cabeçalho -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0"><i class="bi bi-person"></i> Lista de clientes</h1>
+    <RouterLink to="/leadcadastro" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> Adicionar Cliente
+    </RouterLink>
 </div>
 
-<h1 class="text-center text-black pt-5" v-if="!carregamento">Lista de clientes</h1>
-
 <div class="d-flex aling-items-center" v-if="!carregamento">
-<RouterLink class="text-center btn btn-primary m-2" to="/cadastroprodutos">
-  Cadastrar novo cliente
-</RouterLink>
 <form class="d-flex m-2" role="search" @submit.prevent="pesquisar">
       <input class="form-control me-2" type="search" placeholder="Pesquisar..." v-model="termoPesquisa">
       <button class="btn btn-success" type="submit">Pesquisar</button>
