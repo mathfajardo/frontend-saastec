@@ -217,6 +217,7 @@ const coresStatus = {
                           <i class="bi bi-clock me-1"></i>{{ lead.updated_at }}
                         </small>
                       </div>
+                      <a :href="`https://wa.me/55${lead.numero}`" target="_blank" @click.stop class="text-success"><i class="bi bi-whatsapp"></i></a>
                       <div class="dropdown">
                         <button 
                           class="btn btn-sm btn-link text-muted" 
