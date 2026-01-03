@@ -15,12 +15,26 @@ let obj = ref({
     'id': null,
     'nome': '',
     'numero': '',
-    'status': '',
+    'status': 'Selecione uma opção',
     'observacoes': ''
 });
 
 function cadastrar_lead() {
     loading.value = true;
+
+    // expressão regular para pegar so os numeros
+    obj.value.numero = obj.value.numero.replace(/\D/g, '');
+
+    // verifica se foi seleciona uma opção
+    if (obj.value.status == 'Selecione uma opção') {
+        Swal.fire({
+            title: 'Atenção',
+            text: 'Selecione um status',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+        });
+        return;
+    }
     
     axiosInstance.post('/leads/', obj.value)
     .then(response => {
@@ -59,12 +73,12 @@ function cadastrar_lead() {
         <form @submit.prevent="cadastrar_lead">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do lead</label>
-                <input type="text" class="form-control" v-model="obj.nome">
+                <input type="text" class="form-control" v-model="obj.nome" placeholder="Digite o nome do lead..." required>
             </div>
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Número</label>
-                <input type="text" class="form-control" v-model="obj.numero" v-mask="'(##) #####-####'">
+                <input type="text" class="form-control" v-model="obj.numero" v-mask="'(##) ####-####'" placeholder="Número sem 9 na frente..." required>
             </div>
 
             <div class="mb-3">
@@ -80,7 +94,7 @@ function cadastrar_lead() {
 
             <div class="mb-3">
                 <label for="1" class="form-label">Observações</label>
-                <input type="text" class="form-control" v-model="obj.observacoes">
+                <input type="text" class="form-control" v-model="obj.observacoes" placeholder="Digite aqui sua observação...">
             </div>
 
             <button type="submit" class="btn btn-primary" :disabled="loading"><span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>{{ loading ? "Cadastrando..." : "Cadastrar" }}</button>
