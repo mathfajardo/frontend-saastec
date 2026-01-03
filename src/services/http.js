@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    // baseURL: 'https://repsaas.api.fajatech.com.br/api',
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://repsaas.api.fajatech.com.br/api',
+    // baseURL: 'http://localhost:8000/api',
     headers: {
         'Content-Type': 'application/json'
     }
