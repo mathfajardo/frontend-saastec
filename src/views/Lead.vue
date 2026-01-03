@@ -55,6 +55,9 @@ function salvarLead() {
 
   const index = leads.value.findIndex(l => l.id === leadSelecionado.value.id);
 
+  // expressão regular para pegar so os numeros
+    leadSelecionado.value.numero = leadSelecionado.value.numero.replace(/\D/g, '');
+
   // caso o status seja para convertido, ja envia para cadastro
   if (leadSelecionado.value.status == 'Convertido') {
     router.push(`/clientecadastro/${leadSelecionado.value.id}`);
