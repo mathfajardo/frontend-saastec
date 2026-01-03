@@ -19,6 +19,7 @@ let obj = ref({
     'nome': '',
     'numero': '',
     'plano': '',
+    'mensalidade': null,
     'observacoes': ''
 });
 
@@ -45,6 +46,10 @@ onMounted(() => {
 
 function adicionar_cliente() {
     loading.value = true;
+
+    // expressão regular para pegar so os numeros
+    obj.value.numero = obj.value.numero.replace(/\D/g, '');
+    obj.value.mensalidade = obj.value.mensalidade.replace(',', '.');
 
     axiosInstance.post('/clientes/', obj.value)
     .then(response => {
@@ -92,7 +97,7 @@ function adicionar_cliente() {
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Número</label>
-                <input type="text" class="form-control"  v-mask="'(##) #####-####'" v-model="obj.numero" required>
+                <input type="text" class="form-control"  v-mask="'(##) ####-####'" v-model="obj.numero" required>
             </div>
 
             <div class="mb-3">
@@ -101,8 +106,13 @@ function adicionar_cliente() {
             </div>
 
             <div class="mb-3">
+                <label for="plano" class="form-label">Mensalidade</label>
+                <input type="text" class="form-control" v-model="obj.mensalidade" placeholder="Preencha o valor da mensalidade" v-mask="'###,##'" required>
+            </div>
+
+            <div class="mb-3">
                 <label for="1" class="form-label">Observações</label>
-                <input type="text" class="form-control" v-model="obj.observacoes">
+                <input type="text" class="form-control" v-model="obj.observacoes" placeholder="Adicione uma observação">
             </div>
 
             <button type="submit" class="btn btn-primary" :disabled="loading"><span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>{{ loading ? "Cadastrando..." : "Cadastrar" }}</button>
