@@ -6,6 +6,7 @@ import TelaLogin from '@/views/TelaLogin.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@/stores/auth'
 import ClienteCadastro from '@/views/ClienteCadastro.vue'
+import RotaErro from '@/views/RotaErro.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,14 @@ const router = createRouter({
       path: '/', 
       name: 'login',
       component: TelaLogin,
+      meta: {
+        esconderNav: true
+      }
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "error",
+      component: RotaErro,
       meta: {
         esconderNav: true
       }
