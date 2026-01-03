@@ -55,6 +55,11 @@ function salvarLead() {
 
   const index = leads.value.findIndex(l => l.id === leadSelecionado.value.id);
 
+  // caso o status seja para convertido, ja envia para cadastro
+  if (leadSelecionado.value.status == 'Convertido') {
+    router.push(`/clientecadastro/${leadSelecionado.value.id}`);
+  }
+
   axiosInstance.put('/leads/' + leadSelecionado.value.id, leadSelecionado.value)
   .then(response => {
     Swal.fire({
@@ -91,22 +96,9 @@ function moverLead(leadId, novoStatus) {
   
   lead.status = novoStatus
 
+  // caso o status seja para convertido, ja envia para cadastro
   if (novoStatus == 'Convertido') {
-    axiosInstance.put('/leads/' + leadId, lead)
-    .then(response => {
-      leads.value[index] = { ...lead };
-      router.push(`/clientecadastro/${leadId}`);
-    })
-    .catch(error => {
-      console.error('Erro: ', error);
-      Swal.fire({
-        title: 'erro ao atualizar',
-        text: 'favor entrar em contato com o admin do sistema',
-        icon: 'error',
-        confirmButtonText: 'Ok'
-      });
-    })
-    return
+    router.push(`/clientecadastro/${leadId}`);
   }
 
 

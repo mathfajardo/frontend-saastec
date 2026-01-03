@@ -80,7 +80,7 @@ function adicionar_cliente() {
 
 <template>
 <div class="container">
-    <h1 class="text-center text-black pt-5">Cadastro</h1>
+    <h1 class="text-center text-black pt-5">Cadastre aqui seu novo cliente</h1>
 
 
     <div class="bg-body border p-3 shadow-sm">
