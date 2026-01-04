@@ -114,6 +114,7 @@ function pesquisar() {
           <th scope="col">Numero</th>
           <th scope="col">Plano</th>
           <th scope="col">Mensalidade</th>
+          <th scope="col">Data de cadastro</th>
           <th scope="col">Editar</th>
           <th scope="col">Deletar</th>
         </tr>
@@ -124,6 +125,7 @@ function pesquisar() {
           <td>{{ c.numero }}</td>
           <td>{{ c.plano }}</td>
           <td>{{ formatarValor(c.mensalidade) }}</td>
+          <td>{{ c.created_at }}</td>
           <td>
             <RouterLink class="btn btn-outline-primary" :to="`/clienteeditar/${c.id}`">Editar</RouterLink>
           </td>
