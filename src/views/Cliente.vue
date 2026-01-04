@@ -43,7 +43,7 @@ function remover(cliente) {
       clientesOriginal.value = clientesOriginal.value.filter(c => c.id !== cliente.id);
       console.log(response.data);
       Swal.fire({
-        title: 'Produto removido com sucesso!',
+        title: response.message,
         icon: 'success',
         confirmButtonColor: '#000000',
         confirmButtonText: 'Ok'
