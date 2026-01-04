@@ -15,28 +15,19 @@ let obj = ref({
     'id': null,
     'nome': '',
     'numero': '',
-    'status': 'Selecione uma opção',
+    'plano': '',
+    'mensalidade': '',
     'observacoes': ''
 });
 
-function cadastrar_lead() {
+function cadastrar_cliente() {
     loading.value = true;
 
     // expressão regular para pegar so os numeros
     obj.value.numero = obj.value.numero.replace(/\D/g, '');
-
-    // verifica se foi seleciona uma opção
-    if (obj.value.status == 'Selecione uma opção') {
-        Swal.fire({
-            title: 'Atenção',
-            text: 'Selecione um status',
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-        });
-        return;
-    }
+    obj.value.mensalidade = obj.value.mensalidade.replace(',', '.');
     
-    axiosInstance.post('/leads/', obj.value)
+    axiosInstance.post('/clientes/', obj.value)
     .then(response => {
         Swal.fire({
             position: 'top-end',
@@ -47,7 +38,7 @@ function cadastrar_lead() {
             timerProgressBar: true,
             showConfirmButton: false
         });
-        router.push('/lead');
+        router.push('/cliente');
     })
     .catch(error => {
         console.error("Erro: ", error);
@@ -66,14 +57,14 @@ function cadastrar_lead() {
 
 <template>
 <div class="container">
-    <h1 class="text-center text-black pt-5">Cadastrar Lead</h1>
+    <h1 class="text-center text-black pt-5">Cadastrar cliente</h1>
 
 
     <div class="bg-body border p-3 shadow-sm">
-        <form @submit.prevent="cadastrar_lead">
+        <form @submit.prevent="cadastrar_cliente">
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome do lead</label>
-                <input type="text" class="form-control" v-model="obj.nome" placeholder="Digite o nome do lead..." required>
+                <label for="nome" class="form-label">Nome do cliente</label>
+                <input type="text" class="form-control" v-model="obj.nome" placeholder="Digite o nome do cliente..." required>
             </div>
 
             <div class="mb-3">
@@ -82,14 +73,13 @@ function cadastrar_lead() {
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" v-model="obj.status">
-                    <option selected>Selecione uma opção</option>
-                    <option value="Novo">Novos</option>
-                    <option value="Em atendimento">Em atendimento</option>
-                    <option value="Convertido">Convertidos</option>
-                    <option value="Perdido">Perdidos</option>
-                </select>
+                <label for="nome" class="form-label">Plano</label>
+                <input type="text" class="form-control" v-model="obj.plano" placeholder="Digite o plano do cliente..." required>
+            </div>
+             
+            <div class="mb-3">
+                <label for="nome" class="form-label">Mensalidade</label>
+                <input type="text" class="form-control" v-model="obj.mensalidade" placeholder="Preencha o valor da mensalidade" v-mask="'###,##'" required>
             </div>
 
             <div class="mb-3">

@@ -7,6 +7,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@/stores/auth'
 import ClienteCadastro from '@/views/ClienteCadastro.vue'
 import RotaErro from '@/views/RotaErro.vue'
+import ClienteCadastroDireto from '@/views/ClienteCadastroDireto.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,14 @@ const router = createRouter({
       path: '/clientecadastro/:id',
       name: 'clientecadastro',
       component: ClienteCadastro,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/clientecadastrodireto',
+      name: 'clientecadastrodireto',
+      component: ClienteCadastroDireto,
       meta: {
         auth: true
       }

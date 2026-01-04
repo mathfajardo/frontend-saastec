@@ -93,7 +93,7 @@ function pesquisar() {
   <!-- Cabeçalho -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="mb-0"><i class="bi bi-person"></i> Lista de clientes</h1>
-    <RouterLink to="/leadcadastro" class="btn btn-primary">
+    <RouterLink to="/clientecadastrodireto" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i> Adicionar Cliente
     </RouterLink>
   </div>
@@ -131,8 +131,8 @@ function pesquisar() {
         </tr>
 
         <tr v-if="clientes.length === 0">
-          <td colspan="5" class="text-center py-3 text-muted">
-            Nenhum cliente encontrado.
+          <td colspan="6" class="text-center py-3 text-muted">
+            Nenhum cliente cadastrado.
           </td>
         </tr>
       </tbody>
