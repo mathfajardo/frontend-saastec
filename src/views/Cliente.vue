@@ -125,7 +125,7 @@ function pesquisar() {
           <td>{{ c.plano }}</td>
           <td>{{ formatarValor(c.mensalidade) }}</td>
           <td>
-            <RouterLink class="btn btn-outline-primary" :to="`/editarprodutos/${c.id}`">Editar</RouterLink>
+            <RouterLink class="btn btn-outline-primary" :to="`/clienteeditar/${c.id}`">Editar</RouterLink>
           </td>
           <td><button class="btn btn-outline-danger" @click="remover(c)">Deletar</button></td>
         </tr>
