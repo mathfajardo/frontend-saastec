@@ -48,9 +48,13 @@ async function login() {
 
 
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
-    <div class="bg-body border shadow-sm p-3 p-md-5 rounded shadow-lg" style="width: 100%; max-width: 400px;">
-        <p class="text-center h3 fw-bold">FajaLead</p>
-        <p class="text-center text-muted">Bem-vindo de volta! Faça login para continuar</p>
+    <div class="bg-body border shadow-sm p-3 p-md-5 rounded shadow-lg text-center" style="width: 100%; max-width: 400px;">
+        <img 
+          src="/logo_shopb2b.jpeg" 
+          class="img-fluid mb-3"
+          style="max-width: 150px; height: auto;"
+        >
+        <p class="text-muted">Bem-vindo de volta!</p>
         <form @submit.prevent="login">
             <div class="mb-3">
                 <label for="nome" class="form-label">Email</label>

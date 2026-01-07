@@ -45,9 +45,9 @@ async function fazerLogout() {
   <div class="sidebar azul1" :style="{ width: sidebarWidth }">
     <h1 class="text-center py-3 mb-4 border-bottom">
       <span v-if="collapsed" class="d-flex flex-column align-items-center">
-        <div>FL</div>
+        <div>P</div>
       </span>
-      <span v-else class="fs-4">FajaLead</span>
+      <span v-else class="fs-4">Painel</span>
     </h1>
 
     <div class="px-3">
