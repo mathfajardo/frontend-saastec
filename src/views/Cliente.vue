@@ -133,7 +133,7 @@ function pesquisar() {
         </tr>
 
         <tr v-if="clientes.length === 0">
-          <td colspan="6" class="text-center py-3 text-muted">
+          <td colspan="7" class="text-center py-3 text-muted">
             Nenhum cliente cadastrado.
           </td>
         </tr>
