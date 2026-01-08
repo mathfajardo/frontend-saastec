@@ -43,7 +43,13 @@ onMounted(() => {
     })
     .catch(error => {
         console.error('Erro: ', error);
-        carregamento.value = false;
+        Swal.fire({
+            title: '404',
+            icon: 'error',
+            confirmButtonColor: '#000000',
+            confirmButtonText: 'Ok'
+        });
+        router.push('/cliente')
     })
 });
 

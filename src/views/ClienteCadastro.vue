@@ -15,7 +15,7 @@ const route = useRoute();
 let lead = ref([]);
 
 let obj = ref({
-    'id': null,
+    'lead_id': null,
     'nome': '',
     'numero': '',
     'plano': '',
@@ -32,6 +32,7 @@ onMounted(() => {
     .then(response => {
         lead.value = response.data.data;
 
+        obj.value.lead_id = lead.value.id;
         obj.value.nome = lead.value.nome;
         obj.value.numero = lead.value.numero;
         obj.value.observacoes = lead.value.observacoes;
