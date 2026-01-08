@@ -9,25 +9,32 @@ const carregamento = ref(true);
 let totalLeadsMes = ref(0);
 let totalClientesMes = ref(0);
 let totalClientes = ref(0);
+let totalLeadsMesTodos = ref([]);
 
 onMounted(() => {
-  createHistogram();
+  
 
   Promise.all([
     axiosInstance.get('/leadsMes'),
     axiosInstance.get('/clientesMes'),
-    axiosInstance.get('clientesTotal')
+    axiosInstance.get('/clientesTotal'),
+    axiosInstance.get('/leadsMesTodos')
   ])
   .then(responses => {
     totalLeadsMes.value = responses[0].data.data.total;
     totalClientesMes.value = responses[1].data.data.total;
     totalClientes.value = responses[2].data.data.total;
+
+    const meses = responses[3].data.data[0];
+    totalLeadsMesTodos.value = Object.values(meses);
+    histogramData.value.datasets[0].data = totalLeadsMesTodos.value;
   })
   .catch(error => {
     console.log('Erro: ', error);
   })
   .finally(() =>{
     carregamento.value = false;
+    createHistogram();
   }) 
 });
 
@@ -36,7 +43,7 @@ const histogramData = ref({
   labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
   datasets: [{
     label: 'Leads por Mês',
-    data: [65, 59, 80, 81, 56, 55, 40, 72, 88, 94, 67, 78],
+    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     backgroundColor: 'rgba(59, 130, 246, 0.5)',
     borderColor: 'rgba(59, 130, 246, 1)',
     borderWidth: 1
@@ -70,8 +77,9 @@ const createHistogram = () => {
       scales: {
         y: {
           beginAtZero: true,
+          max: 100,
           ticks: {
-            stepSize: 20
+            stepSize: 10
           },
           title: {
             display: true,

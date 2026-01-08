@@ -54,15 +54,15 @@ async function login() {
           class="img-fluid mb-3"
           style="max-width: 150px; height: auto;"
         >
-        <p class="text-muted">Bem-vindo de volta!</p>
+        <p class="text-primary fw-bold">Bem-vindo de volta!</p>
         <form @submit.prevent="login">
             <div class="mb-3">
-                <label for="nome" class="form-label">Email</label>
+                <label for="nome" class="form-label fw-bold">Email</label>
                 <input type="email" class="form-control" placeholder="Digite seu email..." v-model="user.email">
             </div>
 
             <div class="mb-3">
-                <label for="nome" class="form-label">Senha</label>
+                <label for="nome" class="form-label fw-bold">Senha</label>
                 <input type="password" class="form-control" placeholder="Digite sua senha..." v-model="user.password">
             </div>
 
