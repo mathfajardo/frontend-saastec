@@ -13,6 +13,25 @@ let leads = ref([]);
 
 const router = useRouter();
 
+// Controlar quantos leads mostrar por status
+let leadsVisiveisPorStatus = ref({
+  'Novo': 3,
+  'Em atendimento': 3,
+  'Perdido': 3,
+  'Convertido': 3
+});
+
+// Função para mostrar mais leads
+const mostrarMais = (status) => {
+  leadsVisiveisPorStatus.value[status] += 4;
+};
+
+// Função para verificar se há mais leads para mostrar
+const temMaisLeads = (status) => {
+  const totalLeads = leadsPorStatus.value[status].length;
+  const visiveis = leadsVisiveisPorStatus.value[status];
+  return visiveis < totalLeads;
+};
 
 // carregando os leads
 onMounted(() => {
@@ -200,9 +219,10 @@ const coresStatus = {
             </div>
 
             <!-- Lista de leads da coluna -->
-            <div class="card-body p-3 kanban-column" :style="{ minHeight: '500px' }">
+            <div class="card-body p-3 kanban-column" :style="{ minHeight: '400px' }">
+              <!-- Cards visíveis -->
               <div 
-                v-for="lead in leadsPorStatus[status]" 
+                v-for="(lead, index) in leadsPorStatus[status].slice(0, leadsVisiveisPorStatus[status])" 
                 :key="lead.id"
                 class="kanban-card mb-3"
                 @click="abrirDetalhesLead(lead)"
@@ -241,6 +261,17 @@ const coresStatus = {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <!-- Botão "Ver Mais" -->
+              <div v-if="temMaisLeads(status)" class="text-center mt-3">
+                <button 
+                  @click="mostrarMais(status)" 
+                  class="btn btn-outline-primary btn-sm"
+                >
+                  <i class="bi bi-chevron-down me-1"></i>
+                  Ver Mais ({{ leadsPorStatus[status].length - leadsVisiveisPorStatus[status] }} restantes)
+                </button>
               </div>
             </div>
           </div>
