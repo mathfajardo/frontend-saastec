@@ -110,7 +110,7 @@ const createHistogram = () => {
   </div>
 
     <!-- titulo da pagina -->
-  <h1 class="mb-5" v-if="!carregamento"><i class="bi bi-house-door"></i> Home</h1>
+  <h1 class="mb-5" v-if="!carregamento">Home</h1>
 
   <!-- cards -->
   <div class="d-flex flex-wrap gap-4 mt-5" v-if="!carregamento">

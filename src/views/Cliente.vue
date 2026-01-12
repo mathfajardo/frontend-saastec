@@ -92,7 +92,7 @@ function pesquisar() {
 
   <!-- Cabeçalho -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0"><i class="bi bi-person"></i> Lista de clientes</h1>
+    <h1 class="mb-0">Lista de clientes</h1>
     <RouterLink to="/clientecadastrodireto" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i> Adicionar Cliente
     </RouterLink>
