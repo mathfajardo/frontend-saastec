@@ -10,6 +10,7 @@ import RotaErro from '@/views/RotaErro.vue'
 import ClienteCadastroDireto from '@/views/ClienteCadastroDireto.vue'
 import ClienteEditar from '@/views/ClienteEditar.vue'
 import Usuario from '@/views/Usuario.vue'
+import EnvioCampanha from '@/views/EnvioCampanha.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -90,6 +91,14 @@ const router = createRouter({
       path: '/usuario/',
       name: 'usuario',
       component: Usuario,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/enviocampanha/',
+      name: 'enviocampanha',
+      component: EnvioCampanha,
       meta: {
         auth: true
       }
