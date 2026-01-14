@@ -214,6 +214,10 @@ const coresStatus = {
                   <span class="badge bg-light text-dark ms-2">
                     {{ leadsPorStatus[status].length }}
                   </span>
+                  <button v-if="status == 'Novo'" v-tippy="'Aqui vão aparecer os leads novos'" class="btn text-white"><i class="bi bi-question-circle"></i></button>
+                  <button v-if="status == 'Em atendimento'" v-tippy="'Aqui vão aparecer os leads em atendimento, leads que estão aqui o bot não responde!!'" class="btn text-white"><i class="bi bi-question-circle"></i></button>
+                  <button v-if="status == 'Perdido'" v-tippy="'Aqui vão aparecer os leads perdidos'" class="btn text-white"><i class="bi bi-question-circle"></i></button>
+                  <button v-if="status == 'Convertido'" v-tippy="'Aqui vão aparecer os leads convertidos'" class="btn text-white"><i class="bi bi-question-circle"></i></button>
                 </h5>
               </div>
             </div>
