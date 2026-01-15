@@ -2,6 +2,7 @@
 import axiosInstance from '@/services/http';
 import { onMounted, ref } from 'vue';
 import Swal from 'sweetalert2';
+import { computed } from 'vue';
 
 // carregamento
 let carregamento = ref(true);
@@ -14,6 +15,10 @@ let mensagem = ref('');
 let leads = ref([]);
 let leadsOriginal = ref([]);
 let termoPesquisa = ref('');
+let ordenarPor = ref('nome');
+let ordemCrescente = ref(true);
+let quantidadePorPagina = ref(10);
+let paginaAtual = ref(1);
 
 onMounted(() => {
     axiosInstance.get('/leads/')
@@ -40,6 +45,37 @@ function pesquisar() {
         lead.nome.toLowerCase().includes(termo) ||
         lead.numero.includes(termo)
     );
+    paginaAtual.value = 1
+}
+
+// ordenação
+const leadsOrdenadosEPaginados = computed(() => {
+    // ordenar
+    let resultado = [...leads.value].sort((a, b) => {
+        let valorA = a[ordenarPor.value];
+        let valorB = b[ordenarPor.value];
+
+        valorA = valorA.toLowerCase();
+        valorB = valorB.toLowerCase();
+
+        if (valorA < valorB) return ordemCrescente.value ? -1 : 1;
+        if (valorA > valorB) return ordemCrescente.value ? 1 : -1;
+        return 0;
+    });
+
+    const inicio = (paginaAtual.value - 1) * quantidadePorPagina.value;
+    const fim = inicio + quantidadePorPagina.value;
+
+    return resultado.slice(inicio, fim);
+})
+
+function ordenar(campo) {
+    if (ordenarPor.value === campo) {
+        ordemCrescente.value = !ordemCrescente.value;
+    } else {
+        ordenarPor.value = campo;
+        ordemCrescente.value = true;
+    }
 }
 
 // selecionar lead
@@ -152,20 +188,69 @@ function enviarCampanha() {
         </form>
     </div>
 
+    <!-- seção do seletor -->
+     <div class="d-flex justify-content-between align-items-center mb-3" v-if="!carregamento">
+        <!-- seletor -->
+        <div class="d-flex align-items-center">
+            <span class="me-2">Mostrar:</span>
+            <select class="form-select form-select-sm w-auto" v-model="quantidadePorPagina">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option :value="leads.length">Todos</option>
+            </select>
+            <span class="ms-2 text-muted">
+                {{ Math.min((paginaAtual - 1) * quantidadePorPagina + 1, leads.length) }} -
+                {{ Math.min(paginaAtual * quantidadePorPagina, leads.length) }}
+                de {{ leads.length }} registros
+            </span>
+        </div>
+
+        <!-- paginação -->
+        <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-outline-secondary me-2" @click="paginaAtual--" :disabled="paginaAtual <= 1">
+                Anterior
+            </button>
+            <span class="mx-2">Página {{ paginaAtual }} de {{ Math.ceil(leads.length / quantidadePorPagina) }}</span>
+            <button class="btn btn-sm btn-outline-secondary me-2" @click="paginaAtual++" :disabled="paginaAtual >= Math.ceil(leads.length / quantidadePorPagina)">
+                Proxima
+            </button>
+        </div>
+     </div>
+
     <!-- tabela -->
     <div class="table-responsive shadow-sm" v-if="!carregamento">
         <table class="table border table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col">Nome do lead</th>
-                    <th scope="col">Número</th>
+                    <th scope="col" style="cursor: pointer;" @click="ordenar('nome')">
+                        Nome do lead
+                        <span v-if="ordenarPor === 'nome'">
+                            <i :class="ordemCrescente ? 'bi bi-arrow-up' : 'bi bi-arrow-down'"></i>
+                        </span>
+                    </th>
+                    <th scope="col" style="cursor: pointer;" @click="ordenar('numero')">
+                        Número
+                        <span v-if="ordenarPor === 'numero'">
+                            <i :class="ordemCrescente ? 'bi bi-arrow-up' : 'bi bi-arrow-down'"></i>
+                        </span>
+                    </th>
+                    <th scope="col" style="cursor: pointer;" @click="ordenar('status')">
+                        Status
+                        <span v-if="ordenarPor === 'status'">
+                            <i :class="ordemCrescente ? 'bi bi-arrow-up' : 'bi bi-arrow-down'"></i>
+                        </span>
+                    </th>
                     <th scope="col">Selecionar</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="l in leads" :key="l.id" :class="{ 'table-active': estaSelecionado(l) }">
+                <tr v-for="l in leadsOrdenadosEPaginados" :key="l.id" :class="{ 'table-active': estaSelecionado(l) }">
                     <td>{{ l.nome }}</td>
                     <td>{{ l.numero }}</td>
+                    <td>{{ l.status }}</td>
                     <td>
                         <input 
                             class="form-check-input" 
