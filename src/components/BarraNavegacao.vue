@@ -56,7 +56,7 @@ async function fazerLogout() {
       <RouterLink to="/cliente" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-person-heart"></i> <span v-if="!collapsed">Clientes</span></RouterLink>
       <RouterLink to="/usuario" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-person-fill"></i> <span v-if="!collapsed">Usuarios</span></RouterLink>
       <RouterLink to="/enviocampanha" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-fire"></i> <span v-if="!collapsed">Campanhas (beta)</span></RouterLink>
-      <a class="nav-link py-2 text-danger" @click.prevent="fazerLogout" style="cursor: pointer;"><i class="bi bi-box-arrow-right"></i> <span v-if="!collapsed">Sair</span></a>
+      <a class="nav-link py-2 text-dark bg-danger" @click.prevent="fazerLogout" style="cursor: pointer;"><i class="bi bi-box-arrow-right"></i> <span v-if="!collapsed">Sair</span></a>
     </div>
 
     <span
