@@ -51,11 +51,11 @@ async function fazerLogout() {
     </h1>
 
     <div class="px-3">
-      <RouterLink to="/home" class="nav-link py-2"><i class="bi bi-house-door-fill"></i> <span v-if="!collapsed">Home</span></RouterLink>
-      <RouterLink to="/lead" class="nav-link py-2"><i class="bi bi-person-fill-add"></i> <span v-if="!collapsed">Leads</span></RouterLink>
-      <RouterLink to="/cliente" class="nav-link py-2"><i class="bi bi-person-heart"></i> <span v-if="!collapsed">Clientes</span></RouterLink>
-      <RouterLink to="/usuario" class="nav-link py-2"><i class="bi bi-person-fill"></i> <span v-if="!collapsed">Usuarios</span></RouterLink>
-      <RouterLink to="/enviocampanha" class="nav-link py-2"><i class="bi bi-fire"></i> <span v-if="!collapsed">Campanhas</span></RouterLink>
+      <RouterLink to="/home" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-house-door-fill"></i> <span v-if="!collapsed">Home</span></RouterLink>
+      <RouterLink to="/lead" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-person-fill-add"></i> <span v-if="!collapsed">Leads</span></RouterLink>
+      <RouterLink to="/cliente" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-person-heart"></i> <span v-if="!collapsed">Clientes</span></RouterLink>
+      <RouterLink to="/usuario" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-person-fill"></i> <span v-if="!collapsed">Usuarios</span></RouterLink>
+      <RouterLink to="/enviocampanha" class="nav-link py-2" active-class="text-primary bg-light"><i class="bi bi-fire"></i> <span v-if="!collapsed">Campanhas (beta)</span></RouterLink>
       <a class="nav-link py-2 text-danger" @click.prevent="fazerLogout" style="cursor: pointer;"><i class="bi bi-box-arrow-right"></i> <span v-if="!collapsed">Sair</span></a>
     </div>
 
